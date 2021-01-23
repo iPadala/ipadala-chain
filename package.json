@@ -1,0 +1,31 @@
+{
+  "name": "chain1",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "nodemon app",
+    "test": "nodemon app.js --a=3001 --p=8080 --w=\"E:\\Dev Files\\1-new\\ipadala\\test\\chain1\\wallet.json\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1"
+  },
+  "dependencies": {
+    "bignumber.js": "^9.0.1",
+    "body-parser": "^1.19.0",
+    "crypto-js": "^4.0.0",
+    "elliptic": "^6.5.3",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "nodemon": "^2.0.7",
+    "socket.io": "^3.1.0",
+    "socket.io-client": "^3.1.0",
+    "socket.io-p2p-server": "^1.2.0"
+  }
+}

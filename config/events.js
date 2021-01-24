@@ -5,5 +5,6 @@ module.exports = {
     START_MINTING: 'startMinting',
     NEW_BLOCK: 'newBlock',
     NEW_TRANSACTION: 'newTransaction',
-    CLEAR_TRANSACTION_POOL: 'clearTransactionPool'
+    CLEAR_TRANSACTION_POOL: 'clearTransactionPool',
+    SYNC_TRANSACTION_POOL: 'syncTransactionPool'
 }

@@ -112,6 +112,7 @@ const initHttpServer = (port) => {
 
     app.use((err, req, res, next) => {
         if (err) {
+            console.log(err)
             res.status(400).send({ error: err.message })
         }
     })

@@ -85,6 +85,7 @@ const initHttpServer = (port) => {
         if (secret) txWallet = Wallet.getWalletInfoBySecret(secret)
         if (txWallet === null) throw Error('No wallet specified')
         if (transactionPool.hasExistingTransaction(txWallet.address)) throw Error('Double spend detected')
+        txWallet.balance = wallet.getBalance(txWallet.address)
         const tx = Transaction.createTransaction(txWallet, address, amount)
         if (!Transaction.verifyTransaction(tx)) throw Error('Invalid transaction ' + tx)
         transactionPool.updateOrAddTransaction(tx)

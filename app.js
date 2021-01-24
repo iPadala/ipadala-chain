@@ -121,7 +121,10 @@ const initHttpServer = (port) => {
     app.put('/setWallet', (req, res) => {
         const { secret } = req.body
         if (!secret) throw Error('Missing secret')
-        wallet.setWallet(Wallet.getWalletInfoBySecret(secret))
+        Util.writeFile(config.BLOCK_WALLET, JSON.stringify(Wallet.getWalletInfoBySecret(secret)), (err) => {
+            if (err) throw err
+            wallet.setWallet(Wallet.getWalletInfoBySecret(secret))
+        })
         res.status(201).end()
     })
 

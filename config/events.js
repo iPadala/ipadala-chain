@@ -1,5 +1,5 @@
 module.exports = {
-    UPDATE_BLOCKCHAIN: 'updateBlockchain',
+    SYNC_BLOCKCHAIN: 'syncBlockchain',
     GET_LAST_BlOCK: 'getLastBlock',
     GET_LAST_BlOCK_HEIGHT: 'getLastBlockHeight',
     START_MINTING: 'startMinting',

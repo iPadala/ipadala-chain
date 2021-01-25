@@ -76,6 +76,7 @@ class P2pServer {
             console.log('Received new block at height:', block.height)
             this._blockchain.addNewBlock(block)
             this._blockchain.replaceChain(this._blockchain._chain)
+            this.broadcast(events.NEW_BLOCK, block)
         })
     }
 

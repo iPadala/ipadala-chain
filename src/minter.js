@@ -40,7 +40,7 @@ class Minter {
                         prevHash
                     })
                     this._blockchain.addNewBlock(block)
-                    this._p2pServer.setChains()
+                    this._p2pServer.broadcast(Util.events().NEW_BLOCK, block)
                     return block
                 }
             }

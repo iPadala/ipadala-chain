@@ -59605,6 +59605,13 @@ class P2pServer {
     socket.on(events.CLEAR_TRANSACTION_POOL, () => {
       this._transactionPool.clear();
     });
+    socket.on(events.NEW_BLOCK, block => {
+      console.log('Received new block at height:', block.height);
+
+      this._blockchain.addNewBlock(block);
+
+      this._blockchain.replaceChain(this._blockchain._chain);
+    });
   }
 
   connectToPeer(peer) {

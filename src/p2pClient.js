@@ -17,6 +17,10 @@ class P2pClient {
             console.log('Connected to ', peer)
             this.initPeer(p2p)
         })
+        p2p.on('ready', () => {
+            console.log('Connected to ', peer)
+            p2p.usePeerConnection = true
+        })
     }
 
     broadcast (event, data) {
@@ -55,6 +59,7 @@ class P2pClient {
             this._transactionPool.syncTransactions(transactions)
         })
         socket.on(events.SET_BLOCKCHAIN, (chain) => {
+            console.log('Received chain from', socket.peerId, 'at height:', chain[chain.length - 1].height)
             this._blockchain.replaceChain(chain)
         })
         socket.on(events.GET_TRANSACTION_POOL, () => {
@@ -65,6 +70,11 @@ class P2pClient {
         })
         socket.on(events.CLEAR_TRANSACTION_POOL, () => {
             this._transactionPool.clear()
+        })
+        socket.on(events.NEW_BLOCK, (block) => {
+            console.log('Received new block at height:', block.height)
+            this._blockchain.addNewBlock(block)
+            this._blockchain.replaceChain(this._blockchain._chain)
         })
     }
 

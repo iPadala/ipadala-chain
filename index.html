@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="msg">
+<br>
+<button type="button">Send</button>
+</body>
+</html>
+<script type="module" src="./dist/util.js"></script>
+<script type="module" src="./dist/block.js"></script>
+<script type="module" src="./dist/blockchain.js"></script>
+<script type="module" src="./dist/transaction.js"></script>
+<script type="module" src="./dist/transactionPool.js"></script>
+<script type="module" src="./dist/wallet.js"></script>
+<script type="module" src="./dist/p2pClient.js"></script>
+<script type="module" src="./dist/minter.js"></script>
+
+<script type="module">
+    const blockchain = new Blockchain()
+    const transactionPool = new TransactionPool()
+    const wallet = new Wallet(blockchain)
+    const p2pClient = new P2pClient(blockchain, transactionPool)
+    p2pClient.connectToPeer('http://localhost:8080')
+    console.log('Block synching in progress...')
+    setTimeout(() => {
+        console.log('Latest block:', blockchain.getLatestBlock().height)
+    }, 3000)
+    document.querySelector('button').addEventListener('click', sendP2p);
+    function sendP2p(){
+        var msg = document.getElementById('msg').value
+        p2pClient.broadcast('ping', msg)
+    }
+</script>

@@ -1,21 +1,6 @@
-const genesisConfig = require('../config/genesis')
+const genesisConfig = require('./config/genesis')
 const Util = require('./util')
-
-class Block {
-    constructor ({ height, timestamp, transactions = [], minter, difficulty, prevHash = '' }) {
-        this.height = height
-        this.timestamp = timestamp
-        this.transactions = transactions
-        this.minter = minter
-        this.difficulty = difficulty
-        this.prevHash = prevHash
-        this.hash = this.calculateBlockHash()
-    }
-
-    calculateBlockHash () {
-        return Util.calculateHash(this.height + this.timestamp + this.transactions + this.minter + this.difficulty + this.prevHash)
-    }
-}
+const Block = require('./block')
 
 class Blockchain {
     constructor () {
@@ -89,7 +74,7 @@ class Blockchain {
     isValidBlock (block) {
         const latestBlock = this.getLatestBlock()
         if (latestBlock.hash !== block.prevHash) return false
-        if (block.hash !== block.calculateBlockHash()) return false
+        if (block.hash !== Util.calculateHash(block.height + block.timestamp + block.transactions + block.minter + block.difficulty + block.prevHash)) return false
         return block.transactions.length > 0
     }
 
@@ -99,7 +84,7 @@ class Blockchain {
         for (let i = 1; i < this._chain.length; i++) {
             const block = this._chain[i]
             const lastBlock = this._chain[i - 1]
-            if (block.prevHash !== lastBlock.hash || block.hash !== block.calculateBlockHash()) return false
+            if (block.prevHash !== lastBlock.hash || block.hash !== Util.calculateHash(block.height + block.timestamp + block.transactions + block.minter + block.difficulty + block.prevHash)) return false
         }
         return true
     }
@@ -111,7 +96,4 @@ class Blockchain {
     }
 }
 
-module.exports = {
-    Block,
-    Blockchain
-}
+module.exports = Blockchain

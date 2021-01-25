@@ -4,17 +4,22 @@
   "description": "",
   "scripts": {
     "start": "nodemon app",
-    "test": "nodemon app.js --a=3001 --p=8080 --m=true --w=\"E:\\Dev Files\\1-new\\ipadala\\test\\chain1\\wallet.json\""
+    "test": "nodemon app.js --a=3001 --p=8080 --m=true --w=\"E:\\Dev Files\\1-new\\ipadala\\test\\chain\\wallet.json\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "babelify": "^10.0.0",
+    "browserify": "^17.0.0",
     "eslint": "^7.18.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1"
+    "eslint-plugin-promise": "^4.2.1",
+    "gulp": "^4.0.2",
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
     "bignumber.js": "^9.0.1",
@@ -26,6 +31,7 @@
     "nodemon": "^2.0.7",
     "socket.io": "^3.1.0",
     "socket.io-client": "^3.1.0",
+    "socket.io-p2p": "^2.2.0",
     "socket.io-p2p-server": "^1.2.0",
     "socket.io-server": "^1.0.0-b"
   }

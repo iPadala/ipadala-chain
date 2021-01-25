@@ -1,21 +1,22 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 
-const { Block, Blockchain } = require('./lib/blockchain')
-const Transaction = require('./lib/transaction')
-const TransactionPool = require('./lib/transactionPool')
-const Wallet = require('./lib/wallet')
-const P2pServer = require('./lib/p2p')
-const Minter = require('./lib/minter')
-const Util = require('./lib/util')
-const catchAsync = require('./lib/catchAsync')
+const Util = require('./src/util')
+const Block = require('./src/block')
+const Blockchain = require('./src/blockchain')
+const Transaction = require('./src/transaction')
+const TransactionPool = require('./src/transactionPool')
+const Wallet = require('./src/wallet')
+const P2pServer = require('./src/p2pServer')
+const Minter = require('./src/minter')
+const catchAsync = require('./src/catchAsync')
 
 const blockchain = new Blockchain()
 const transactionPool = new TransactionPool()
 const p2p = new P2pServer(blockchain, transactionPool)
 const wallet = new Wallet(blockchain)
 
-const config = require('./config')
+const config = require('./src/config')
 
 const initHttpServer = (port) => {
     const app = express()

@@ -3,7 +3,7 @@ const moment = require('moment')
 const EC = require('elliptic').ec
 const ec = new EC('secp256k1')
 const fs = require('fs')
-const events = require('../config/events')
+const events = require('./config/events')
 
 class Util {
     static genKeyPair () {

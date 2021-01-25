@@ -1,6 +1,6 @@
 const { BigNumber } = require('bignumber.js')
 const Util = require('./util')
-const config = require('../config')
+const config = require('./config')
 
 class Minter {
     constructor (block, blockchain, transactionPool, wallet, p2pServer) {
@@ -40,7 +40,7 @@ class Minter {
                         prevHash
                     })
                     this._blockchain.addNewBlock(block)
-                    this._p2pServer.syncChains()
+                    this._p2pServer.setChains()
                     return block
                 }
             }

@@ -1,8 +1,13 @@
 const server = require('http').createServer()
-const io = require('socket.io')(server)
+const p2pServer = require('socket.io-p2p-server').Server
+const io = require('socket.io')(server, {
+    cors: {
+        origin: '*'
+    }
+})
 const client = require('socket.io-client')
 
-const Utils = require('./util')
+const events = require('./config/events')
 
 class P2pServer {
     constructor (blockchain, transactionPool) {
@@ -12,7 +17,8 @@ class P2pServer {
     }
 
     init (port) {
-        server.listen(port, () => console.log('Listening p2p on port: ', port))
+        io.use(p2pServer)
+        server.listen(port, () => console.log('Listening p2pServer on port: ', port))
         io.on('connection', (socket) => {
             console.log('New peer from', socket.id)
             this.initPeer(socket)
@@ -40,23 +46,30 @@ class P2pServer {
     initPeer (socket) {
         this.addPeer(socket)
         this.initListeners(socket)
-        this.syncTransactionPool()
+        this.getChains()
+        this.getTransactionPool()
     }
 
     initListeners (socket) {
         socket.on('disconnect', () => {
             this.removePeer(socket)
         })
-        socket.on(Utils.events().NEW_TRANSACTION, (transaction) => {
+        socket.on(events.NEW_TRANSACTION, (transaction) => {
             this._transactionPool.updateOrAddTransaction(transaction)
         })
-        socket.on(Utils.events().SYNC_TRANSACTION_POOL, (transactions) => {
+        socket.on(events.SET_TRANSACTION_POOL, (transactions) => {
             this._transactionPool.syncTransactions(transactions)
         })
-        socket.on(Utils.events().SYNC_BLOCKCHAIN, (chain) => {
+        socket.on(events.SET_BLOCKCHAIN, (chain) => {
             this._blockchain.replaceChain(chain)
         })
-        socket.on(Utils.events().CLEAR_TRANSACTION_POOL, () => {
+        socket.on(events.GET_TRANSACTION_POOL, () => {
+            socket.emit(events.SET_TRANSACTION_POOL, this._transactionPool.transactions)
+        })
+        socket.on(events.GET_BLOCKCHAIN, () => {
+            socket.emit(events.SET_BLOCKCHAIN, this._blockchain._chain)
+        })
+        socket.on(events.CLEAR_TRANSACTION_POOL, () => {
             this._transactionPool.clear()
         })
     }
@@ -69,12 +82,20 @@ class P2pServer {
         })
     }
 
-    syncChains () {
-        this.broadcast(Utils.events().SYNC_BLOCKCHAIN, this._blockchain._chain)
+    setChains () {
+        this.broadcast(events.SET_BLOCKCHAIN, this._blockchain._chain)
     }
 
-    syncTransactionPool () {
-        this.broadcast(Utils.events().SYNC_TRANSACTION_POOL, this._transactionPool.transactions)
+    setTransactionPool () {
+        this.broadcast(events.SET_TRANSACTION_POOL, this._transactionPool.transactions)
+    }
+
+    getChains () {
+        this.broadcast(events.GET_BLOCKCHAIN)
+    }
+
+    getTransactionPool () {
+        this.broadcast(events.GET_TRANSACTION_POOL)
     }
 }
 

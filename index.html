@@ -20,11 +20,21 @@
 <script type="module" src="./dist/minter.js"></script>
 
 <script type="module">
+    const nodes = [
+        'http://139.59.103.50:8080',
+        'http://localhost:8080'
+    ]
     const blockchain = new Blockchain()
     const transactionPool = new TransactionPool()
     const wallet = new Wallet(blockchain)
     const p2pClient = new P2pClient(blockchain, transactionPool)
-    p2pClient.connectToPeer('http://localhost:8080')
+    nodes.forEach((node) => {
+        try {
+            p2pClient.connectToPeer(node)
+        }catch (e) {
+            //console.log(e)
+        }
+    })
     console.log('Block synching in progress...')
     setTimeout(() => {
         console.log('Latest block:', blockchain.getLatestBlock().height)

@@ -94,6 +94,26 @@ const initHttpServer = (port) => {
         res.send(tx)
     }))
 
+    app.post('/transaction/mint', catchAsync((req, res) => {
+        const { address, amount, secret } = req.body
+        if (!address) throw Error('Missing receiving address')
+        if (!amount) throw Error('Missing amount')
+        let txWallet = wallet.getWallet()
+        if (secret) txWallet = Wallet.getWalletInfoBySecret(secret)
+        if (txWallet === null) throw Error('No wallet specified')
+        if (transactionPool.hasExistingTransaction(txWallet.address)) throw Error('Double spend detected')
+        txWallet.balance = wallet.getBalance(txWallet.address)
+        const tx = Transaction.createTransaction(txWallet, address, amount)
+        if (!Transaction.verifyTransaction(tx)) throw Error('Invalid transaction ' + tx)
+        transactionPool.updateOrAddTransaction(tx)
+        p2p.broadcast(Util.events().NEW_TRANSACTION, tx)
+        const minter = new Minter(Block, blockchain, transactionPool, { address: txWallet.address, balance: txWallet.balance }, p2p)
+        const block = minter.mint()
+        if (!block) throw Error('No blocks minted')
+        p2p.broadcast(Util.events().NEW_BLOCK, block)
+        res.send(block)
+    }))
+
     app.post('/mint', catchAsync((req, res) => {
         const { address } = req.body
         if (!address) throw Error('Missing receiving address')

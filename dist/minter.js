@@ -41908,12 +41908,12 @@ function config (name) {
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],221:[function(require,module,exports){
 module.exports={
-  "name": "chain1",
+  "name": "ipadala-chain",
   "version": "1.0.0",
   "description": "",
   "scripts": {
     "start": "nodemon app",
-    "test": "nodemon app.js --a=3001 --p=8080 --m=true --w=\"E:\\Dev Files\\1-new\\ipadala\\test\\chain\\wallet.json\""
+    "test": "nodemon app.js --a=3001 --p=8081 --m=true --w=\"E:\\Dev Files\\1-new\\ipadala\\test\\chain\\wallet.json\""
   },
   "author": "",
   "license": "ISC",

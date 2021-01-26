@@ -3,6 +3,7 @@ const moment = require('moment')
 const EC = require('elliptic').ec
 const ec = new EC('secp256k1')
 const fs = require('fs')
+const { v4: uuidv4 } = require('uuid')
 const events = require('./config/events')
 
 class Util {
@@ -48,6 +49,10 @@ class Util {
         if (address.length !== 130) return false
         if (address.match('^[a-fA-F0-9]+$') === null) return false
         return address.startsWith('04')
+    }
+
+    static generateId () {
+        return uuidv4()
     }
 }
 

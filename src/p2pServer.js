@@ -1,5 +1,4 @@
-import path from 'path'
-
+const path = require('path')
 if (!process.env.NODE_ENV) {
     const dotenv = require('dotenv-safe')
     dotenv.config({

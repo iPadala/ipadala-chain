@@ -1,5 +1,4 @@
-import path from 'path'
-
+const path = require('path')
 const bodyParser = require('body-parser')
 const express = require('express')
 const fs = require('fs')

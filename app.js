@@ -170,7 +170,7 @@ const initHttpServer = (port) => {
             cert: fs.readFileSync(__dirname + '/cert/cert.pem')
         }), app)
     server.listen(port, () => {
-        console.log('Listening http on port: ' + port)
+        console.log('Listening http on port: ' + port, '[', process.env.NODE_ENV, ']')
     })
 }
 if (config.BLOCK_WALLET !== null) {

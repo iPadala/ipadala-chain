@@ -6,7 +6,6 @@ if (!process.env.NODE_ENV) {
         path: path.join(__dirname, '/.env')
     })
 }
-
 const fs = require('fs')
 const server = (process.env.NODE_ENV !== 'production'
     ? require('http').createServer()

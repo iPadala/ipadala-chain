@@ -25,7 +25,8 @@ const config = require('./src/config')
 if (!process.env.NODE_ENV) {
     const dotenv = require('dotenv-safe')
     dotenv.config({
-        path: path.join(__dirname, '/.env')
+        path: path.join(__dirname, '/.env'),
+        example: path.join(__dirname, '/.env.example')
     })
 }
 

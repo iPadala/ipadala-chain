@@ -2,7 +2,8 @@ const path = require('path')
 if (!process.env.NODE_ENV) {
     const dotenv = require('dotenv-safe')
     dotenv.config({
-        path: path.join(__dirname, '/.env')
+        path: path.join(__dirname, '../.env'),
+        example: path.join(__dirname, '../.env.example')
     })
 }
 const fs = require('fs')

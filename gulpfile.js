@@ -1,6 +1,7 @@
 const gulp = require('gulp')
 const source = require('vinyl-source-stream')
 const browserify = require('browserify')
+const wrap = require('gulp-wrap-umd')
 
 gulp.task('browser', cb => {
     const entries = [
@@ -20,6 +21,14 @@ gulp.task('browser', cb => {
             .pipe(source(`${file}.js`))
             .pipe(gulp.dest('./dist'))
     })
+})
+
+gulp.task('umd', function () {
+    return gulp.src(['./src/*.js'])
+        .pipe(wrap({
+            namespace: 'Chain'
+        }))
+        .pipe(gulp.dest('./dist/'))
 })
 
 gulp.task('client', cb => {

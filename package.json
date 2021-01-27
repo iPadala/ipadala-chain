@@ -19,6 +19,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "gulp": "^4.0.2",
+    "gulp-wrap-umd": "^0.2.1",
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {

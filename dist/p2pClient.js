@@ -14697,19 +14697,19 @@ class P2pClient {
     socket.on(events.NEW_TRANSACTION, transaction => {
       this._transactionPool.updateOrAddTransaction(transaction);
 
-      this._function();
+      if (this._function) this._function();
     });
     socket.on(events.SET_TRANSACTION_POOL, transactions => {
       this._transactionPool.syncTransactions(transactions);
 
-      this._function();
+      if (this._function) this._function();
     });
     socket.on(events.SET_BLOCKCHAIN, chain => {
       console.log('Received chain from', socket.peerId, 'at height:', chain[chain.length - 1].height);
 
       this._blockchain.replaceChain(chain);
 
-      this._function();
+      if (this._function) this._function();
     });
     socket.on(events.GET_TRANSACTION_POOL, () => {
       socket.emit(events.SET_TRANSACTION_POOL, this._transactionPool.transactions);
@@ -14727,7 +14727,7 @@ class P2pClient {
 
       this._blockchain.replaceChain(this._blockchain._chain);
 
-      this._function();
+      if (this._function) this._function();
     });
   }
 

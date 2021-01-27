@@ -1,3 +1,5 @@
+import path from 'path'
+
 const bodyParser = require('body-parser')
 const express = require('express')
 const fs = require('fs')
@@ -20,6 +22,13 @@ const p2p = new P2pServer(blockchain, transactionPool)
 const wallet = new Wallet(blockchain)
 
 const config = require('./src/config')
+
+if (!process.env.NODE_ENV) {
+    const dotenv = require('dotenv-safe')
+    dotenv.config({
+        path: path.join(__dirname, '/.env')
+    })
+}
 
 const initHttpServer = (port) => {
     const app = express()

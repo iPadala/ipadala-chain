@@ -1,5 +1,8 @@
 const bodyParser = require('body-parser')
 const express = require('express')
+const fs = require('fs')
+const http = require('http')
+const https = require('https')
 
 const Util = require('./src/util')
 const Block = require('./src/block')
@@ -151,6 +154,12 @@ const initHttpServer = (port) => {
         res.status(201).end()
     })
 
+    const server = (process.env.NODE_ENV === 'development'
+        ? http.createServer()
+        : https.createServer({
+            key: fs.readFileSync(__dirname + '/cert/key.pem'),
+            cert: fs.readFileSync(__dirname + '/cert/cert.pem')
+        }))
     app.listen(port, () => {
         console.log('Listening http on port: ' + port)
     })

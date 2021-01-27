@@ -1,4 +1,10 @@
-const server = require('http').createServer()
+const fs = require('fs')
+const server = (process.env.NODE_ENV === 'development'
+    ? require('http').createServer()
+    : require('https').createServer({
+        key: fs.readFileSync(__dirname + '/../cert/key.pem'),
+        cert: fs.readFileSync(__dirname + '/../cert/cert.pem')
+    }))
 const p2pServer = require('socket.io-p2p-server').Server
 const io = require('socket.io')(server, {
     cors: {

@@ -4,6 +4,7 @@ const express = require('express')
 const fs = require('fs')
 const http = require('http')
 const https = require('https')
+const cors = require('cors')
 
 const Util = require('./src/util')
 const Block = require('./src/block')
@@ -33,6 +34,7 @@ if (!process.env.NODE_ENV) {
 const initHttpServer = (port) => {
     const app = express()
     app.use(bodyParser.json())
+    app.use(cors())
 
     // GET
     app.get('/blocks', catchAsync((req, res) => {

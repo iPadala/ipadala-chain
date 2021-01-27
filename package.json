@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "nodemon app",
-    "test": "nodemon app.js --a=3001 --p=8081 --m=true --w=\"E:\\Dev Files\\1-new\\ipadala\\test\\chain\\wallet.json\"",
+    "test": "nodemon app.js --a=3001 --p=8888 --m=true --w=\"E:\\Dev Files\\1-new\\ipadala\\test\\chain\\wallet.json\"",
     "prod": "NODE_ENV=production && pm2 start app.js --name=chain -- --a=3001 --p=8081 --m=true"
   },
   "author": "",

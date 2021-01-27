@@ -1,5 +1,6 @@
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
 const fs = require('fs')
-const server = (process.env.NODE_ENV === 'development'
+const server = (process.env.NODE_ENV !== 'production'
     ? require('http').createServer()
     : require('https').createServer({
         key: fs.readFileSync(__dirname + '/../cert/key.pem'),
@@ -24,7 +25,7 @@ class P2pServer {
 
     init (port) {
         io.use(p2pServer)
-        server.listen(port, () => console.log('Listening p2pServer on port: ', port))
+        server.listen(port, () => console.log('Listening p2pServer on port: ', port, '[', process.env.NODE_ENV, ']'))
         io.on('connection', (socket) => {
             console.log('New peer from', socket.id)
             this.initPeer(socket)

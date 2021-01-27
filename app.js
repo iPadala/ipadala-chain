@@ -79,7 +79,7 @@ const initHttpServer = (port) => {
     // POST
 
     app.post('/transaction', catchAsync((req, res) => {
-        const { address, amount, secret } = req.body
+        const { address, amount, secret, reference } = req.body
         if (!address) throw Error('Missing receiving address')
         if (!amount) throw Error('Missing amount')
         let txWallet = wallet.getWallet()
@@ -87,7 +87,7 @@ const initHttpServer = (port) => {
         if (txWallet === null) throw Error('No wallet specified')
         if (transactionPool.hasExistingTransaction(txWallet.address)) throw Error('Double spend detected')
         txWallet.balance = wallet.getBalance(txWallet.address)
-        const tx = Transaction.createTransaction(txWallet, address, amount)
+        const tx = Transaction.createTransaction(txWallet, address, amount, reference)
         if (!Transaction.verifyTransaction(tx)) throw Error('Invalid transaction ' + tx)
         transactionPool.updateOrAddTransaction(tx)
         p2p.broadcast(Util.events().NEW_TRANSACTION, tx)
@@ -95,7 +95,7 @@ const initHttpServer = (port) => {
     }))
 
     app.post('/transaction/mint', catchAsync((req, res) => {
-        const { address, amount, secret } = req.body
+        const { address, amount, secret, reference } = req.body
         if (!address) throw Error('Missing receiving address')
         if (!amount) throw Error('Missing amount')
         let txWallet = wallet.getWallet()
@@ -103,7 +103,7 @@ const initHttpServer = (port) => {
         if (txWallet === null) throw Error('No wallet specified')
         if (transactionPool.hasExistingTransaction(txWallet.address)) throw Error('Double spend detected')
         txWallet.balance = wallet.getBalance(txWallet.address)
-        const tx = Transaction.createTransaction(txWallet, address, amount)
+        const tx = Transaction.createTransaction(txWallet, address, amount, reference)
         if (!Transaction.verifyTransaction(tx)) throw Error('Invalid transaction ' + tx)
         transactionPool.updateOrAddTransaction(tx)
         p2p.broadcast(Util.events().NEW_TRANSACTION, tx)

@@ -39859,7 +39859,7 @@ module.exports = {
 const Util = require('./util');
 
 class Transaction {
-  static createTransaction(wallet, receiver, amount) {
+  static createTransaction(wallet, receiver, amount, reference = '') {
     const tx = {
       sender: wallet.address,
       receiver,
@@ -39870,6 +39870,7 @@ class Transaction {
     if (wallet.balance < tx.amount) throw Error('Not enough balance');
     if (!Util.validateAddress(tx.receiver)) throw Error('Invalid receiver address');
     if (!Util.validateAddress(tx.sender)) throw Error('Invalid sender address');
+    tx.reference = reference;
     tx.timestamp = Util.getCurrentTimestamp();
     tx.hash = Util.calculateHash(tx);
     tx.id = Util.generateId();

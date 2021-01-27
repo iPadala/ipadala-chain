@@ -1,4 +1,3 @@
-if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
 const fs = require('fs')
 const server = (process.env.NODE_ENV !== 'production'
     ? require('http').createServer()

@@ -164,12 +164,12 @@ const initHttpServer = (port) => {
     })
 
     const server = (process.env.NODE_ENV === 'development'
-        ? http.createServer()
+        ? http.createServer(app)
         : https.createServer({
             key: fs.readFileSync(__dirname + '/cert/key.pem'),
             cert: fs.readFileSync(__dirname + '/cert/cert.pem')
-        }))
-    app.listen(port, () => {
+        }), app)
+    server.listen(port, () => {
         console.log('Listening http on port: ' + port)
     })
 }

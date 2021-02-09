@@ -74,7 +74,7 @@ class Blockchain {
     isValidBlock (block) {
         const latestBlock = this.getLatestBlock()
         if (latestBlock.hash !== block.prevHash) return false
-        if (block.hash !== Util.calculateHash(block.height + block.timestamp + block.transactions + block.minter + block.difficulty + block.prevHash)) return false
+        if (block.hash !== Util.calculateHash(block.height + block.timestamp + JSON.stringify(block.transactions) + block.minter + block.difficulty + block.prevHash)) return false
         return block.transactions.length > 0
     }
 
@@ -84,7 +84,7 @@ class Blockchain {
         for (let i = 1; i < this._chain.length; i++) {
             const block = this._chain[i]
             const lastBlock = this._chain[i - 1]
-            if (block.prevHash !== lastBlock.hash || block.hash !== Util.calculateHash(block.height + block.timestamp + block.transactions + block.minter + block.difficulty + block.prevHash)) return false
+            if (block.prevHash !== lastBlock.hash || block.hash !== Util.calculateHash(block.height + block.timestamp + JSON.stringify(block.transactions) + block.minter + block.difficulty + block.prevHash)) return false
         }
         return true
     }

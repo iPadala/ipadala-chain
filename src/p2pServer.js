@@ -13,7 +13,6 @@ const server = (process.env.NODE_ENV !== 'production'
         key: fs.readFileSync(__dirname + '/../cert/key.pem'),
         cert: fs.readFileSync(__dirname + '/../cert/cert.pem')
     }))
-const p2pServer = require('socket.io-p2p-server').Server
 const io = require('socket.io')(server, {
     cors: {
         origin: '*'
@@ -31,7 +30,6 @@ class P2pServer {
     }
 
     init (port) {
-        io.use(p2pServer)
         server.listen(port, () => console.log('Listening p2pServer on port: ', port, '[', process.env.NODE_ENV, ']'))
         io.on('connection', (socket) => {
             console.log('New peer from', socket.id)

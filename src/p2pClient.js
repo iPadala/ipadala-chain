@@ -13,7 +13,7 @@ class P2pClient {
     connectToPeer (peer) {
         const socket = client.io(peer)
         socket.on('connect', () => {
-            console.log('Connected to ', peer)
+            console.log('Connected to', peer)
             this.initPeer(socket)
         })
     }
@@ -56,7 +56,7 @@ class P2pClient {
             if (this._function) this._function()
         })
         socket.on(events.SET_BLOCKCHAIN, (chain) => {
-            console.log('Received chain from', socket.id, 'at height:', chain[chain.length - 1].height)
+            console.log('Received chain from', socket.io.engine.hostname + ':' + socket.io.engine.port, 'at height:', chain[chain.length - 1].height)
             this._blockchain.replaceChain(chain)
             if (this._function) this._function()
         })

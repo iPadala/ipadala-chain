@@ -10,9 +10,10 @@ class Transaction {
         if (!Util.validateAddress(tx.sender)) throw Error('Invalid sender address')
         tx.reference = reference
         tx.timestamp = Util.getCurrentTimestamp()
-        tx.hash = Util.calculateHash(tx)
         tx.id = Util.generateId()
-        tx.signature = Util.signData(wallet.secret, tx.hash)
+        const hash = Util.calculateHash(JSON.stringify(tx))
+        tx.signature = Util.signData(wallet.secret, hash)
+        tx.hash = hash
         return tx
     }
 

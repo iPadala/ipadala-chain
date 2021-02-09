@@ -12,7 +12,7 @@ class Block {
     }
 
     calculateBlockHash () {
-        return Util.calculateHash(this.height + this.timestamp + this.transactions + this.minter + this.difficulty + this.prevHash)
+        return Util.calculateHash(this.height + this.timestamp + JSON.stringify(this.transactions) + this.minter + this.difficulty + this.prevHash)
     }
 }
 

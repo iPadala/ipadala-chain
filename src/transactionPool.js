@@ -6,12 +6,13 @@ class TransactionPool {
     }
 
     updateOrAddTransaction (transaction) {
-        const transactionWithHash = this.transactions.find(t => t.hash === transaction.hash)
+        /* const transactionWithHash = this.transactions.find(t => t.hash === transaction.hash)
         if (transactionWithHash) {
             this.transactions[this.transactions.indexOf(transactionWithHash)] = transaction
         } else {
             this.transactions.push(transaction)
-        }
+        } */
+        this.transactions.push(transaction)
     }
 
     syncTransactions (transactions) {

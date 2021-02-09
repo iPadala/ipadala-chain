@@ -48,7 +48,7 @@ class P2pClient {
             this.removePeer(socket)
         })
         socket.on(events.NEW_TRANSACTION, (transaction) => {
-            this._transactionPool.updateOrAddTransaction(transaction)
+            this._transactionPool.syncTransactions(transaction)
             if (this._function) this._function()
         })
         socket.on(events.SET_TRANSACTION_POOL, (transactions) => {

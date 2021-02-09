@@ -35,7 +35,6 @@
     "nodemon": "^2.0.7",
     "socket.io": "^3.1.0",
     "socket.io-client": "^3.1.0",
-    "socket.io-p2p": "^2.2.0",
     "socket.io-p2p-server": "^1.2.0",
     "socket.io-server": "^1.0.0-b",
     "uuid": "^8.3.2"

@@ -42752,7 +42752,8 @@ module.exports={
   "description": "",
   "scripts": {
     "start": "nodemon app",
-    "test": "nodemon app.js --a=3001 --p=8081 --m=true --w=\"E:\\Dev Files\\1-new\\ipadala\\test\\chain\\wallet.json\""
+    "test": "nodemon app.js --a=3001 --p=8888 --m=true --w=\"E:\\Dev Files\\1-new\\ipadala\\test\\chain\\wallet.json\"",
+    "prod": "pm2 start app.js --name=chain -- --a=443 --p=8081 --m=true"
   },
   "author": "",
   "license": "ISC",
@@ -42773,14 +42774,15 @@ module.exports={
   "dependencies": {
     "bignumber.js": "^9.0.1",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "crypto-js": "^4.0.0",
+    "dotenv-safe": "^8.2.0",
     "elliptic": "^6.5.3",
     "express": "^4.17.1",
     "moment": "^2.29.1",
     "nodemon": "^2.0.7",
     "socket.io": "^3.1.0",
     "socket.io-client": "^3.1.0",
-    "socket.io-p2p": "^2.2.0",
     "socket.io-p2p-server": "^1.2.0",
     "socket.io-server": "^1.0.0-b",
     "uuid": "^8.3.2"

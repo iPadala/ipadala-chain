@@ -1,4 +1,3 @@
-const P2P = require('socket.io-p2p')
 const client = require('socket.io-client')
 
 const events = require('./config/events')
@@ -13,14 +12,9 @@ class P2pClient {
 
     connectToPeer (peer) {
         const socket = client.io(peer)
-        const p2p = new P2P(socket)
-        p2p.on('connect', () => {
+        socket.on('connect', () => {
             console.log('Connected to ', peer)
-            this.initPeer(p2p)
-        })
-        p2p.on('ready', () => {
-            console.log('Connected to ', peer)
-            p2p.usePeerConnection = true
+            this.initPeer(socket)
         })
     }
 
